@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Install Kotlin — Kotlin Guide</title>
+  <meta name="description" content="Install the Kotlin compiler, set up IntelliJ IDEA, Android Studio, and command-line tools.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M1 1h10.5L1 12.5V1z" fill="#7F52FF"/><path d="M1 12.5L12.5 1H23v11.5L12.5 23 1 12.5z" fill="#7F52FF"/><path d="M12.5 23L23 12.5V23H12.5z" fill="#7F52FF"/></svg>
+        Kotlin Guide
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="getting-started.html">Getting Started</a></li>
+        <li><a href="install.html">Install</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="coding.html">Coding</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="coding.html" class="nav-cta">Start Coding</a></li>
+      </ul>
+      <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header class="page-header">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <span>Install</span>
+      </div>
+      <h1>Install Kotlin</h1>
+      <p>Choose the path that matches your workflow — IDE, command line, or package manager.</p>
+    </header>
+
+    <div class="content-block" data-tabs>
+      <h2>Choose your platform</h2>
+      <div class="tabs">
+        <button class="tab active" data-tab="ide">IDE (Recommended)</button>
+        <button class="tab" data-tab="cli">Command Line</button>
+        <button class="tab" data-tab="sdkman">SDKMAN / Homebrew</button>
+        <button class="tab" data-tab="android">Android Studio</button>
+      </div>
+
+      <div class="tab-panel active" data-panel="ide">
+        <h3>IntelliJ IDEA</h3>
+        <p>The best experience for Kotlin. Community Edition is free and includes full Kotlin support.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h3>Download IntelliJ IDEA</h3>
+              <p>Get the Community or Ultimate edition from <a href="https://www.jetbrains.com/idea/download/" target="_blank" rel="noopener">jetbrains.com/idea</a>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h3>Create a new project</h3>
+              <p>File → New → Project → Kotlin → JVM. The IDE bundles the Kotlin plugin and downloads the compiler automatically.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h3>Write &amp; run</h3>
+              <p>Create a Kotlin file, add a <span class="inline-code">main</span> function, and click the green Run gutter icon.</p>
+            </div>
+          </div>
+        </div>
+        <div class="note">
+          <strong>Note:</strong> Kotlin plugin updates ship with IDE updates. You can also update the plugin via Settings → Plugins.
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="cli">
+        <h3>Command-line compiler</h3>
+        <p>Official compiler packages for Linux, macOS, and Windows.</p>
+
+        <h3>Manual download</h3>
+        <ol>
+          <li>Download the latest compiler from <a href="https://github.com/JetBrains/kotlin/releases" target="_blank" rel="noopener">GitHub Releases</a>.</li>
+          <li>Unpack the archive.</li>
+          <li>Add the <span class="inline-code">bin</span> directory to your <span class="inline-code">PATH</span>.</li>
+        </ol>
+
+        <div class="code-block">
+          <div class="code-header"><span class="lang">bash</span><button class="copy-btn">Copy</button></div>
+          <pre><span class="cm"># Example (Linux / macOS)</span>
+curl -LO https://github.com/JetBrains/kotlin/releases/download/v2.0.21/kotlin-compiler-2.0.21.zip
+unzip kotlin-compiler-2.0.21.zip
+export PATH="$PATH:$(pwd)/kotlinc/bin"
+kotlinc -version</pre>
+        </div>
+
+        <h3>Compile &amp; run</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="lang">bash</span><button class="copy-btn">Copy</button></div>
+          <pre>kotlinc hello.kt -include-runtime -d hello.jar
+java -jar hello.jar
+
+<span class="cm"># Or use the Kotlin runner directly</span>
+kotlin hello.jar</pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="sdkman">
+        <h3>SDKMAN (Linux / macOS)</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="lang">bash</span><button class="copy-btn">Copy</button></div>
+          <pre><span class="cm"># Install SDKMAN if you don't have it</span>
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+<span class="cm"># Install Kotlin</span>
+sdk install kotlin
+kotlin -version</pre>
+        </div>
+
+        <h3>Homebrew (macOS)</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="lang">bash</span><button class="copy-btn">Copy</button></div>
+          <pre>brew install kotlin
+kotlin -version</pre>
+        </div>
+
+        <h3>Snap (Linux)</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="lang">bash</span><button class="copy-btn">Copy</button></div>
+          <pre>sudo snap install --classic kotlin</pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="android">
+        <h3>Android Studio</h3>
+        <p>Android Studio includes full Kotlin support out of the box.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h3>Download Android Studio</h3>
+              <p>Get it from <a href="https://developer.android.com/studio" target="_blank" rel="noopener">developer.android.com/studio</a>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h3>New project with Kotlin</h3>
+              <p>When creating a project, select Kotlin as the language. Empty Activity is a good starting template.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h3>Verify</h3>
+              <p>Open any <span class="inline-code">.kt</span> file — syntax highlighting and the Run configuration should work immediately.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>Verify your installation</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">bash</span><button class="copy-btn">Copy</button></div>
+        <pre>kotlin -version
+<span class="cm"># Expected: Kotlin version 2.x.x ...</span>
+
+kotlinc -version</pre>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>Gradle Kotlin DSL</h2>
+      <p>For multi-module or multiplatform projects, Gradle is the standard build tool. Create a new project in IntelliJ with the Kotlin Gradle template, or use the CLI:</p>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">bash</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="cm"># Using the Gradle wrapper is preferred in real projects</span>
+./gradlew build
+./gradlew run</pre>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>Next</h2>
+      <p>Installation complete? Head to the <a href="coding.html">Coding guide</a> for language features and examples, or return to <a href="getting-started.html">Getting Started</a>.</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M1 1h10.5L1 12.5V1z" fill="#7F52FF"/><path d="M1 12.5L12.5 1H23v11.5L12.5 23 1 12.5z" fill="#7F52FF"/><path d="M12.5 23L23 12.5V23H12.5z" fill="#7F52FF"/></svg>
+          Kotlin Guide
+        </a>
+        <p>A beautiful, self-contained guide to the Kotlin programming language.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <a href="getting-started.html">Getting Started</a>
+        <a href="install.html">Install</a>
+        <a href="learn.html">Learn (Tutorial)</a>
+        <a href="coding.html">Coding</a>
+        <a href="docs.html">Docs</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="https://kotlinlang.org" target="_blank" rel="noopener">Official Site</a>
+        <a href="https://play.kotlinlang.org" target="_blank" rel="noopener">Playground</a>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <a href="https://github.com/JetBrains/kotlin" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Kotlin is developed by JetBrains. This guide is an independent educational resource.</span>
+      <span>Cloudflare Pages ready</span>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

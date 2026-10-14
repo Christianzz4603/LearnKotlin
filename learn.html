@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn Kotlin — Complete Step-by-Step Tutorial</title>
+  <meta name="description" content="Deep, learnpython.org-style Kotlin tutorial covering nearly every language feature: types, null safety, classes, generics, sealed types, coroutines, sequences, delegation, and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <style>
+    .lesson-nav {
+      position: sticky; top: 64px; z-index: 50;
+      background: rgba(13,13,18,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--kt-border);
+      padding: 0.75rem 0; margin: 0 -1.5rem 2rem; overflow-x: auto;
+    }
+    .lesson-nav-inner {
+      display: flex; gap: 0.35rem; max-width: 1100px; margin: 0 auto;
+      padding: 0 1.5rem; min-width: max-content;
+    }
+    .lesson-nav a {
+      white-space: nowrap; padding: 0.4rem 0.75rem; border-radius: 999px;
+      font-size: 0.75rem; font-weight: 500; color: var(--kt-text-muted);
+      background: transparent; border: 1px solid transparent;
+      transition: all var(--transition);
+    }
+    .lesson-nav a:hover { color: var(--kt-text); background: var(--kt-bg-hover); }
+    .lesson-nav a.active {
+      color: var(--kt-primary-light); background: rgba(127,82,255,0.12);
+      border-color: rgba(127,82,255,0.3);
+    }
+    .lesson { scroll-margin-top: 140px; padding: 2.5rem 0; border-bottom: 1px solid var(--kt-border); }
+    .lesson:last-of-type { border-bottom: none; }
+    .lesson-num {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.8rem; font-weight: 600; color: var(--kt-primary-light);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem;
+    }
+    .lesson-num span {
+      background: var(--kt-gradient); color: white; width: 28px; height: 28px;
+      border-radius: 50%; display: inline-flex; align-items: center;
+      justify-content: center; font-size: 0.85rem;
+    }
+    .lesson h2 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .lesson h3 { font-size: 1.2rem; font-weight: 600; margin: 1.75rem 0 0.75rem; color: var(--kt-text); }
+    .lesson h4 { font-size: 1.05rem; font-weight: 600; margin: 1.25rem 0 0.5rem; color: var(--kt-text-muted); }
+    .lesson p, .lesson li { color: var(--kt-text-muted); line-height: 1.7; }
+    .lesson ul, .lesson ol { padding-left: 1.4rem; margin: 0.75rem 0 1.25rem; }
+    .lesson li { margin-bottom: 0.4rem; }
+    .lesson li strong { color: var(--kt-text); }
+    .output-block {
+      background: #0A0A10; border: 1px solid var(--kt-border);
+      border-left: 3px solid var(--kt-accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 0.9rem 1.25rem; margin: 0.75rem 0 1.5rem;
+      font-family: var(--font-mono); font-size: 0.88rem; color: #A7F3D0;
+      white-space: pre-wrap;
+    }
+    .output-block::before {
+      content: 'Output'; display: block; font-size: 0.7rem; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--kt-text-dim); margin-bottom: 0.4rem;
+      font-family: var(--font-sans);
+    }
+    .try-it {
+      background: rgba(0,212,170,0.06); border: 1px solid rgba(0,212,170,0.2);
+      border-radius: var(--radius); padding: 1.25rem 1.5rem; margin: 1.5rem 0;
+    }
+    .try-it h4 {
+      font-size: 0.9rem; color: var(--kt-accent); margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .try-it p { font-size: 0.95rem; margin-bottom: 0; }
+    .section-divider {
+      margin: 3rem 0 1.5rem; padding: 0.75rem 1.25rem;
+      background: var(--kt-gradient-soft); border: 1px solid rgba(127,82,255,0.25);
+      border-radius: var(--radius); font-weight: 700; font-size: 1.1rem;
+      color: var(--kt-primary-light); letter-spacing: -0.01em;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M1 1h10.5L1 12.5V1z" fill="#7F52FF"/><path d="M1 12.5L12.5 1H23v11.5L12.5 23 1 12.5z" fill="#7F52FF"/><path d="M12.5 23L23 12.5V23H12.5z" fill="#7F52FF"/></svg>
+        Kotlin Guide
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="getting-started.html">Getting Started</a></li>
+        <li><a href="install.html">Install</a></li>
+        <li><a href="learn.html" class="active">Learn</a></li>
+        <li><a href="coding.html">Coding</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="learn.html" class="nav-cta">Start Learning</a></li>
+      </ul>
+      <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header class="page-header">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <span>Learn</span>
+      </div>
+      <h1>Learn Kotlin — Complete Guide</h1>
+      <p>
+        A deep, learnpython.org-style walkthrough of nearly every major Kotlin language feature.
+        35+ lessons from “Hello World” to generics, sealed types, delegation, sequences, and coroutines.
+      </p>
+    </header>
+
+    <nav class="lesson-nav" aria-label="Lessons">
+      <div class="lesson-nav-inner">
+        <a href="#hello">1. Hello</a>
+        <a href="#variables">2. Variables</a>
+        <a href="#types">3. Types</a>
+        <a href="#strings">4. Strings</a>
+        <a href="#operators">5. Operators</a>
+        <a href="#conditions">6. if</a>
+        <a href="#loops">7. Loops</a>
+        <a href="#functions">8. Functions</a>
+        <a href="#null">9. Null</a>
+        <a href="#lists">10. Lists</a>
+        <a href="#maps">11. Maps</a>
+        <a href="#sets">12. Sets</a>
+        <a href="#classes">13. Classes</a>
+        <a href="#properties">14. Properties</a>
+        <a href="#visibility">15. Visibility</a>
+        <a href="#data-classes">16. Data Classes</a>
+        <a href="#enums">17. Enums</a>
+        <a href="#objects">18. Objects</a>
+        <a href="#sealed">19. Sealed</a>
+        <a href="#interfaces">20. Interfaces</a>
+        <a href="#when">21. when</a>
+        <a href="#extensions">22. Extensions</a>
+        <a href="#lambdas">23. Lambdas</a>
+        <a href="#scope">24. Scope</a>
+        <a href="#generics">25. Generics</a>
+        <a href="#delegation">26. Delegation</a>
+        <a href="#inline">27. Inline</a>
+        <a href="#operators-over">28. Op Overload</a>
+        <a href="#exceptions">29. Exceptions</a>
+        <a href="#sequences">30. Sequences</a>
+        <a href="#packages">31. Packages</a>
+        <a href="#type-aliases">32. Type Alias</a>
+        <a href="#value-classes">33. Value Classes</a>
+        <a href="#annotations">34. Annotations</a>
+        <a href="#coroutines">35. Coroutines</a>
+        <a href="#flows">36. Flows</a>
+      </div>
+    </nav>
+
+    <!-- ========== BASICS ========== -->
+    <div class="section-divider">Part I — Basics</div>
+
+    <article class="lesson" id="hello">
+      <div class="lesson-num"><span>1</span> Getting started</div>
+      <h2>Hello, Kotlin</h2>
+      <p>Every program starts with <span class="inline-code">main</span> — the entry point the runtime calls.</p>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Hello.kt</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">fun</span> <span class="fn">main</span>() {
+    <span class="fn">println</span>(<span class="str">"Hello, Kotlin!"</span>)
+}</pre>
+      </div>
+      <div class="output-block">Hello, Kotlin!</div>
+      <p><span class="inline-code">println</span> prints a line and adds a newline. <span class="inline-code">print</span> does not.</p>
+      <p>You can also receive command-line arguments:</p>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">fun</span> <span class="fn">main</span>(args: <span class="tp">Array</span>&lt;<span class="tp">String</span>&gt;) {
+    <span class="fn">println</span>(<span class="str">"Args: ${args.joinToString()}"</span>)
+}</pre>
+      </div>
+    </article>
+
+    <article class="lesson" id="variables">
+      <div class="lesson-num"><span>2</span> Variables</div>
+      <h2>val and var</h2>
+      <ul>
+        <li><strong>val</strong> — immutable reference. Prefer this.</li>
+        <li><strong>var</strong> — mutable reference. Use only when reassignment is required.</li>
+      </ul>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> language = <span class="str">"Kotlin"</span>
+<span class="kw">var</span> year = <span class="num">2011</span>
+year = <span class="num">2026</span>
+<span class="fn">println</span>(<span class="str">"$language — $year"</span>)</pre>
+      </div>
+      <div class="output-block">Kotlin — 2026</div>
+      <p>Type can be explicit: <span class="inline-code">val name: String = "Ada"</span>. Usually the compiler infers it.</p>
+      <div class="note"><strong>Rule:</strong> Start with <span class="inline-code">val</span>. Switch to <span class="inline-code">var</span> only when you must reassign.</div>
+    </article>
+
+    <article class="lesson" id="types">
+      <div class="lesson-num"><span>3</span> Basic types</div>
+      <h2>Numbers, Booleans, Characters</h2>
+      <ul>
+        <li><strong>Int</strong> (32-bit), <strong>Long</strong> (64-bit, suffix <span class="inline-code">L</span>)</li>
+        <li><strong>Double</strong>, <strong>Float</strong> (suffix <span class="inline-code">f</span>)</li>
+        <li><strong>Boolean</strong> — <span class="inline-code">true</span> / <span class="inline-code">false</span></li>
+        <li><strong>Char</strong> — single character in single quotes</li>
+        <li><strong>String</strong> — text in double quotes</li>
+        <li><strong>Byte</strong>, <strong>Short</strong>, <strong>UInt</strong>, <strong>ULong</strong> also exist</li>
+      </ul>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> a = <span class="num">10</span>
+<span class="kw">val</span> b = <span class="num">3.14</span>
+<span class="kw">val</span> big = <span class="num">1_000_000_000L</span>
+<span class="kw">val</span> ok = <span class="kw">true</span>
+<span class="kw">val</span> ch = <span class="str">'K'</span>
+<span class="fn">println</span>(a + <span class="num">5</span>)
+<span class="fn">println</span>(b * <span class="num">2</span>)</pre>
+      </div>
+      <div class="output-block">15
+6.28</div>
+      <p>Underscores improve readability: <span class="inline-code">1_000_000</span>.</p>
+      <h3>Type conversion</h3>
+      <p>No implicit widening. Convert explicitly:</p>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> i: <span class="tp">Int</span> = <span class="num">42</span>
+<span class="kw">val</span> d: <span class="tp">Double</span> = i.<span class="fn">toDouble</span>()
+<span class="kw">val</span> s: <span class="tp">String</span> = i.<span class="fn">toString</span>()
+<span class="kw">val</span> back = <span class="str">"42"</span>.<span class="fn">toInt</span>()
+<span class="kw">val</span> safe = <span class="str">"x"</span>.<span class="fn">toIntOrNull</span>()  <span class="cm">// null</span></pre>
+      </div>
+    </article>
+
+    <article class="lesson" id="strings">
+      <div class="lesson-num"><span>4</span> Strings</div>
+      <h2>Templates, operations, multi-line</h2>
+      <h3>String templates</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> name = <span class="str">"Kotlin"</span>
+<span class="kw">val</span> v = <span class="num">2.0</span>
+<span class="fn">println</span>(<span class="str">"Language: $name"</span>)
+<span class="fn">println</span>(<span class="str">"Next: ${v + 0.21}"</span>)</pre>
+      </div>
+      <div class="output-block">Language: Kotlin
+Next: 2.21</div>
+      <h3>Common operations</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> s = <span class="str">"  Hello World  "</span>
+<span class="fn">println</span>(s.<span class="fn">trim</span>())
+<span class="fn">println</span>(s.<span class="fn">uppercase</span>())
+<span class="fn">println</span>(s.<span class="fn">contains</span>(<span class="str">"World"</span>))
+<span class="fn">println</span>(s.<span class="fn">replace</span>(<span class="str">"World"</span>, <span class="str">"Kotlin"</span>))
+<span class="fn">println</span>(s.<span class="fn">substring</span>(<span class="num">2</span>, <span class="num">7</span>))
+<span class="fn">println</span>(s.<span class="fn">split</span>(<span class="str">" "</span>))
+<span class="fn">println</span>(s[<span class="num">2</span>])  <span class="cm">// char at index</span></pre>
+      </div>
+      <h3>Raw / multi-line strings</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> text = <span class="str">"""
+    |Line one
+    |Line two
+""".</span><span class="fn">trimMargin</span>()
+<span class="fn">println</span>(text)</pre>
+      </div>
+      <h3>StringBuilder (efficient mutation)</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> sb = <span class="tp">StringBuilder</span>()
+sb.<span class="fn">append</span>(<span class="str">"Hello"</span>).<span class="fn">append</span>(<span class="str">" "</span>).<span class="fn">append</span>(<span class="str">"Kotlin"</span>)
+<span class="fn">println</span>(sb.<span class="fn">toString</span>())</pre>
+      </div>
+    </article>
+
+    <article class="lesson" id="operators">
+      <div class="lesson-num"><span>5</span> Operators</div>
+      <h2>Arithmetic, comparison, logical</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> x = <span class="num">10</span>; <span class="kw">val</span> y = <span class="num">3</span>
+<span class="fn">println</span>(x + y)   <span class="cm">// 13</span>
+<span class="fn">println</span>(x / y)   <span class="cm">// 3 (integer division)</span>
+<span class="fn">println</span>(x % y)   <span class="cm">// 1</span>
+<span class="fn">println</span>(x > y)   <span class="cm">// true</span>
+<span class="fn">println</span>(x == y)  <span class="cm">// false  (structural equality)</span>
+<span class="fn">println</span>(x === y) <span class="cm">// referential equality (same instance)</span>
+<span class="fn">println</span>(x != y)
+<span class="fn">println</span>(x <span class="kw">in</span> <span class="num">1</span>..<span class="num">20</span>)  <span class="cm">// true</span></pre>
+      </div>
+      <div class="output-block">13
+3
+1
+true
+false
+true
+true
+true</div>
+      <p>Logical: <span class="inline-code">&amp;&amp;</span>, <span class="inline-code">||</span>, <span class="inline-code">!</span>. Bitwise: <span class="inline-code">and</span>, <span class="inline-code">or</span>, <span class="inline-code">xor</span>, <span class="inline-code">shl</span>, <span class="inline-code">shr</span>.</p>
+    </article>
+
+    <article class="lesson" id="conditions">
+      <div class="lesson-num"><span>6</span> Conditions</div>
+      <h2>if is an expression</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> age = <span class="num">20</span>
+<span class="kw">val</span> status = <span class="kw">if</span> (age >= <span class="num">18</span>) <span class="str">"adult"</span> <span class="kw">else</span> <span class="str">"minor"</span>
+<span class="fn">println</span>(status)
+
+<span class="kw">val</span> max = <span class="kw">if</span> (a > b) a <span class="kw">else</span> b</pre>
+      </div>
+      <div class="output-block">adult</div>
+      <p>No ternary <span class="inline-code">? :</span> — use <span class="inline-code">if</span> expressions. Chain with <span class="inline-code">else if</span>.</p>
+    </article>
+
+    <article class="lesson" id="loops">
+      <div class="lesson-num"><span>7</span> Loops &amp; ranges</div>
+      <h2>for, while, ranges</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">for</span> (i <span class="kw">in</span> <span class="num">1</span>..<span class="num">5</span>) <span class="fn">print</span>(<span class="str">"$i "</span>)
+<span class="fn">println</span>()
+<span class="kw">for</span> (i <span class="kw">in</span> <span class="num">5</span> <span class="kw">downTo</span> <span class="num">1</span>) <span class="fn">print</span>(<span class="str">"$i "</span>)
+<span class="fn">println</span>()
+<span class="kw">for</span> (i <span class="kw">in</span> <span class="num">0</span>..<span class="num">10</span> <span class="kw">step</span> <span class="num">2</span>) <span class="fn">print</span>(<span class="str">"$i "</span>)
+<span class="fn">println</span>()
+
+<span class="kw">var</span> n = <span class="num">3</span>
+<span class="kw">while</span> (n > <span class="num">0</span>) { <span class="fn">println</span>(n); n-- }
+
+<span class="cm">// break / continue work as expected</span>
+<span class="cm">// labels: outer@ for (...) { break@outer }</span></pre>
+      </div>
+      <div class="output-block">1 2 3 4 5 
+5 4 3 2 1 
+0 2 4 6 8 10 
+3
+2
+1</div>
+      <p><span class="inline-code">until</span> is exclusive upper bound: <span class="inline-code">0 until 5</span> → 0..4.</p>
+    </article>
+
+    <!-- ========== FUNCTIONS & NULL ========== -->
+    <div class="section-divider">Part II — Functions &amp; Null Safety</div>
+
+    <article class="lesson" id="functions">
+      <div class="lesson-num"><span>8</span> Functions</div>
+      <h2>Declaration, defaults, named args, varargs</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">fun</span> <span class="fn">greet</span>(name: <span class="tp">String</span>): <span class="tp">String</span> = <span class="str">"Hello, $name!"</span>
+
+<span class="kw">fun</span> <span class="fn">connect</span>(host: <span class="tp">String</span> = <span class="str">"localhost"</span>, port: <span class="tp">Int</span> = <span class="num">8080</span>) {
+    <span class="fn">println</span>(<span class="str">"$host:$port"</span>)
+}
+
+<span class="fn">connect</span>()
+<span class="fn">connect</span>(port = <span class="num">3000</span>)
+<span class="fn">connect</span>(<span class="str">"api.example.com"</span>, <span class="num">443</span>)
+
+<span class="cm">// vararg</span>
+<span class="kw">fun</span> <span class="fn">sum</span>(<span class="kw">vararg</span> nums: <span class="tp">Int</span>) = nums.<span class="fn">sum</span>()
+<span class="fn">println</span>(<span class="fn">sum</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>))
+
+<span class="cm">// Unit is the return type of functions that return nothing (like void)</span>
+<span class="kw">fun</span> <span class="fn">log</span>(msg: <span class="tp">String</span>) { <span class="fn">println</span>(msg) }</pre>
+      </div>
+      <div class="output-block">localhost:8080
+localhost:3000
+api.example.com:443
+10</div>
+      <h3>Local functions &amp; infix</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">fun</span> <span class="fn">outer</span>() {
+    <span class="kw">fun</span> <span class="fn">inner</span>(x: <span class="tp">Int</span>) = x * <span class="num">2</span>
+    <span class="fn">println</span>(<span class="fn">inner</span>(<span class="num">21</span>))
+}
+
+<span class="kw">infix fun</span> <span class="tp">Int</span>.<span class="fn">times</span>(str: <span class="tp">String</span>) = str.<span class="fn">repeat</span>(<span class="kw">this</span>)
+<span class="fn">println</span>(<span class="num">3</span> <span class="fn">times</span> <span class="str">"Ha"</span>)  <span class="cm">// HaHaHa</span></pre>
+      </div>
+      <h3>Tail recursion</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">tailrec fun</span> <span class="fn">factorial</span>(n: <span class="tp">Int</span>, acc: <span class="tp">Int</span> = <span class="num">1</span>): <span class="tp">Int</span> =
+    <span class="kw">if</span> (n &lt;= <span class="num">1</span>) acc <span class="kw">else</span> <span class="fn">factorial</span>(n - <span class="num">1</span>, n * acc)
+
+<span class="fn">println</span>(<span class="fn">factorial</span>(<span class="num">5</span>))  <span class="cm">// 120</span></pre>
+      </div>
+    </article>
+
+    <article class="lesson" id="null">
+      <div class="lesson-num"><span>9</span> Null safety</div>
+      <h2>The type system that kills NPEs</h2>
+      <p>Types are non-null by default. Add <span class="inline-code">?</span> to allow null.</p>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">var</span> a: <span class="tp">String</span> = <span class="str">"Hi"</span>     <span class="cm">// never null</span>
+<span class="kw">var</span> b: <span class="tp">String?</span> = <span class="kw">null</span>    <span class="cm">// can be null</span>
+
+<span class="cm">// Safe call</span>
+<span class="fn">println</span>(b?.length)
+
+<span class="cm">// Elvis — default when null</span>
+<span class="kw">val</span> len = b?.length ?: <span class="num">0</span>
+
+<span class="cm">// Not-null assertion (throws if null — use rarely)</span>
+<span class="cm">// val forced = b!!</span>
+
+<span class="cm">// Safe cast</span>
+<span class="kw">val</span> s = a <span class="kw">as?</span> <span class="tp">String</span>   <span class="cm">// null if cast fails</span>
+
+<span class="cm">// let with nullables</span>
+b?.<span class="fn">let</span> { <span class="fn">println</span>(<span class="str">"Got: $it"</span>) }</pre>
+      </div>
+      <h3>lateinit &amp; lazy</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">lateinit var</span> config: <span class="tp">String</span>   <span class="cm">// must assign before read (var only)</span>
+
+<span class="kw">val</span> expensive <span class="kw">by</span> <span class="fn">lazy</span> {
+    <span class="fn">println</span>(<span class="str">"Computing…"</span>)
+    <span class="num">42</span>
+}
+<span class="fn">println</span>(expensive)  <span class="cm">// computes once</span>
+<span class="fn">println</span>(expensive)  <span class="cm">// cached</span></pre>
+      </div>
+    </article>
+
+    <!-- ========== COLLECTIONS ========== -->
+    <div class="section-divider">Part III — Collections</div>
+
+    <article class="lesson" id="lists">
+      <div class="lesson-num"><span>10</span> Lists</div>
+      <h2>Ordered collections</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> fruits = <span class="fn">listOf</span>(<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"cherry"</span>)
+<span class="fn">println</span>(fruits[<span class="num">0</span>])
+<span class="fn">println</span>(fruits.size)
+<span class="fn">println</span>(fruits.<span class="fn">contains</span>(<span class="str">"banana"</span>))
+
+<span class="kw">val</span> numbers = <span class="fn">listOf</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>)
+<span class="fn">println</span>(numbers.<span class="fn">filter</span> { it % <span class="num">2</span> == <span class="num">0</span> })
+<span class="fn">println</span>(numbers.<span class="fn">map</span> { it * <span class="num">2</span> })
+<span class="fn">println</span>(numbers.<span class="fn">sum</span>())
+<span class="fn">println</span>(numbers.<span class="fn">reduce</span> { acc, n -> acc + n })
+<span class="fn">println</span>(numbers.<span class="fn">groupBy</span> { it % <span class="num">2</span> == <span class="num">0</span> })
+<span class="fn">println</span>(numbers.<span class="fn">take</span>(<span class="num">3</span>))
+<span class="fn">println</span>(numbers.<span class="fn">drop</span>(<span class="num">2</span>))
+<span class="fn">println</span>(numbers.<span class="fn">sortedDescending</span>())
+<span class="fn">println</span>(numbers.<span class="fn">zip</span>(fruits))
+
+<span class="kw">val</span> mutable = <span class="fn">mutableListOf</span>(<span class="num">1</span>, <span class="num">2</span>)
+mutable.<span class="fn">add</span>(<span class="num">3</span>)
+mutable[<span class="num">0</span>] = <span class="num">10</span></pre>
+      </div>
+      <div class="output-block">apple
+3
+true
+[2, 4, 6]
+[2, 4, 6, 8, 10, 12]
+21
+21
+{false=[1, 3, 5], true=[2, 4, 6]}
+[1, 2, 3]
+[3, 4, 5, 6]
+[6, 5, 4, 3, 2, 1]
+[(1, apple), (2, banana), (3, cherry)]</div>
+    </article>
+
+    <article class="lesson" id="maps">
+      <div class="lesson-num"><span>11</span> Maps</div>
+      <h2>Key–value stores</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> ages = <span class="fn">mapOf</span>(<span class="str">"Ada"</span> to <span class="num">36</span>, <span class="str">"Grace"</span> to <span class="num">45</span>)
+<span class="fn">println</span>(ages[<span class="str">"Ada"</span>])
+<span class="fn">println</span>(ages.<span class="fn">getOrDefault</span>(<span class="str">"Bob"</span>, <span class="num">0</span>))
+<span class="fn">println</span>(ages.<span class="fn">getOrElse</span>(<span class="str">"Bob"</span>) { <span class="num">-1</span> })
+
+<span class="kw">for</span> ((name, age) <span class="kw">in</span> ages) <span class="fn">println</span>(<span class="str">"$name → $age"</span>)
+
+<span class="kw">val</span> m = <span class="fn">mutableMapOf</span>&lt;<span class="tp">String</span>, <span class="tp">Int</span>&gt;()
+m[<span class="str">"x"</span>] = <span class="num">1</span>
+m.<span class="fn">putAll</span>(ages)
+<span class="fn">println</span>(m.<span class="fn">keys</span>)
+<span class="fn">println</span>(m.<span class="fn">values</span>)
+<span class="fn">println</span>(m.<span class="fn">filter</span> { it.value > <span class="num">40</span> })</pre>
+      </div>
+    </article>
+
+    <article class="lesson" id="sets">
+      <div class="lesson-num"><span>12</span> Sets</div>
+      <h2>Unique elements</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> set = <span class="fn">setOf</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">2</span>, <span class="num">3</span>)
+<span class="fn">println</span>(set)                    <span class="cm">// [1, 2, 3]</span>
+<span class="fn">println</span>(set.<span class="fn">contains</span>(<span class="num">2</span>))
+<span class="fn">println</span>(set <span class="fn">union</span> <span class="fn">setOf</span>(<span class="num">3</span>, <span class="num">4</span>))
+<span class="fn">println</span>(set <span class="fn">intersect</span> <span class="fn">setOf</span>(<span class="num">2</span>, <span class="num">9</span>))
+<span class="fn">println</span>(set <span class="fn">subtract</span> <span class="fn">setOf</span>(<span class="num">1</span>))
+
+<span class="kw">val</span> ms = <span class="fn">mutableSetOf</span>(<span class="str">"a"</span>, <span class="str">"b"</span>)
+ms.<span class="fn">add</span>(<span class="str">"c"</span>)</pre>
+      </div>
+      <div class="output-block">[1, 2, 3]
+true
+[1, 2, 3, 4]
+[2]
+[2, 3]</div>
+    </article>
+
+    <!-- ========== OOP ========== -->
+    <div class="section-divider">Part IV — Object-Oriented Kotlin</div>
+
+    <article class="lesson" id="classes">
+      <div class="lesson-num"><span>13</span> Classes</div>
+      <h2>Primary constructor, init, inheritance</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">class</span> <span class="tp">Person</span>(<span class="kw">val</span> name: <span class="tp">String</span>, <span class="kw">var</span> age: <span class="tp">Int</span>) {
+    <span class="kw">init</span> {
+        <span class="fn">require</span>(age >= <span class="num">0</span>) { <span class="str">"Age must be ≥ 0"</span> }
+        <span class="fn">println</span>(<span class="str">"Created $name"</span>)
+    }
+
+    <span class="kw">constructor</span>(name: <span class="tp">String</span>) : <span class="kw">this</span>(name, <span class="num">0</span>)  <span class="cm">// secondary</span>
+
+    <span class="kw">fun</span> <span class="fn">introduce</span>() = <span class="fn">println</span>(<span class="str">"I'm $name, $age"</span>)
+}
+
+<span class="kw">val</span> p = <span class="tp">Person</span>(<span class="str">"Ada"</span>, <span class="num">36</span>)
+p.<span class="fn">introduce</span>()
+
+<span class="cm">// Inheritance — classes are final by default</span>
+<span class="kw">open class</span> <span class="tp">Animal</span>(<span class="kw">val</span> name: <span class="tp">String</span>) {
+    <span class="kw">open fun</span> <span class="fn">speak</span>() = <span class="fn">println</span>(<span class="str">"..."</span>)
+}
+<span class="kw">class</span> <span class="tp">Dog</span>(name: <span class="tp">String</span>) : <span class="tp">Animal</span>(name) {
+    <span class="kw">override fun</span> <span class="fn">speak</span>() = <span class="fn">println</span>(<span class="str">"Woof!"</span>)
+}
+<span class="tp">Dog</span>(<span class="str">"Rex"</span>).<span class="fn">speak</span>()</pre>
+      </div>
+      <div class="output-block">Created Ada
+I'm Ada, 36
+Woof!</div>
+      <h3>Abstract classes &amp; nested / inner</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">abstract class</span> <span class="tp">Shape</span> {
+    <span class="kw">abstract fun</span> <span class="fn">area</span>(): <span class="tp">Double</span>
+    <span class="kw">fun</span> <span class="fn">description</span>() = <span class="str">"Area = ${area()}"</span>
+}
+
+<span class="kw">class</span> <span class="tp">Outer</span> {
+    <span class="kw">private val</span> x = <span class="num">1</span>
+    <span class="kw">class</span> <span class="tp">Nested</span> { <span class="kw">fun</span> <span class="fn">foo</span>() = <span class="num">2</span> }          <span class="cm">// no access to Outer</span>
+    <span class="kw">inner class</span> <span class="tp">Inner</span> { <span class="kw">fun</span> <span class="fn">foo</span>() = x }     <span class="cm">// has Outer reference</span>
+}</pre>
+      </div>
+    </article>
+
+    <article class="lesson" id="properties">
+      <div class="lesson-num"><span>14</span> Properties</div>
+      <h2>Getters, setters, backing fields</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">class</span> <span class="tp">Rectangle</span>(<span class="kw">val</span> width: <span class="tp">Int</span>, <span class="kw">val</span> height: <span class="tp">Int</span>) {
+    <span class="kw">val</span> area: <span class="tp">Int</span>
+        <span class="kw">get</span>() = width * height          <span class="cm">// computed</span>
+
+    <span class="kw">var</span> name: <span class="tp">String</span> = <span class="str">""</span>
+        <span class="kw">get</span>() = field.<span class="fn">uppercase</span>()      <span class="cm">// field = backing field</span>
+        <span class="kw">set</span>(value) {
+            field = value.<span class="fn">trim</span>()
+        }
+}
+
+<span class="kw">val</span> r = <span class="tp">Rectangle</span>(<span class="num">3</span>, <span class="num">4</span>)
+<span class="fn">println</span>(r.area)   <span class="cm">// 12</span>
+r.name = <span class="str">"  box  "</span>
+<span class="fn">println</span>(r.name)   <span class="cm">// BOX</span></pre>
+      </div>
+      <p>Custom accessors can have different visibility. Use <span class="inline-code">field</span> only inside accessors.</p>
+    </article>
+
+    <article class="lesson" id="visibility">
+      <div class="lesson-num"><span>15</span> Visibility modifiers</div>
+      <h2>public, internal, protected, private</h2>
+      <ul>
+        <li><strong>public</strong> (default) — visible everywhere</li>
+        <li><strong>internal</strong> — visible inside the same module</li>
+        <li><strong>protected</strong> — visible in class + subclasses (not top-level)</li>
+        <li><strong>private</strong> — visible inside the file (top-level) or class</li>
+      </ul>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">internal class</span> <span class="tp">ApiClient</span>
+<span class="kw">private fun</span> <span class="fn">helper</span>() {}
+
+<span class="kw">open class</span> <span class="tp">Base</span> {
+    <span class="kw">protected val</span> secret = <span class="num">42</span>
+}
+<span class="kw">class</span> <span class="tp">Child</span> : <span class="tp">Base</span>() {
+    <span class="kw">fun</span> <span class="fn">show</span>() = <span class="fn">println</span>(secret)
+}</pre>
+      </div>
+    </article>
+
+    <article class="lesson" id="data-classes">
+      <div class="lesson-num"><span>16</span> Data classes</div>
+      <h2>equals, hashCode, toString, copy — free</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">data class</span> <span class="tp">User</span>(<span class="kw">val</span> id: <span class="tp">Int</span>, <span class="kw">val</span> name: <span class="tp">String</span>)
+
+<span class="kw">val</span> u1 = <span class="tp">User</span>(<span class="num">1</span>, <span class="str">"Ada"</span>)
+<span class="kw">val</span> u2 = <span class="tp">User</span>(<span class="num">1</span>, <span class="str">"Ada"</span>)
+<span class="fn">println</span>(u1)
+<span class="fn">println</span>(u1 == u2)                 <span class="cm">// true</span>
+<span class="fn">println</span>(u1.<span class="fn">copy</span>(name = <span class="str">"Grace"</span>))
+<span class="kw">val</span> (id, name) = u1                <span class="cm">// destructuring</span></pre>
+      </div>
+      <div class="output-block">User(id=1, name=Ada)
+true
+User(id=1, name=Grace)</div>
+      <p>Requirements: at least one primary constructor parameter, cannot be abstract/open/sealed/inner.</p>
+    </article>
+
+    <article class="lesson" id="enums">
+      <div class="lesson-num"><span>17</span> Enums</div>
+      <h2>Enumerated types with behavior</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">enum class</span> <span class="tp">Direction</span> {
+    NORTH, SOUTH, EAST, WEST
+}
+
+<span class="kw">enum class</span> <span class="tp">Color</span>(<span class="kw">val</span> rgb: <span class="tp">Int</span>) {
+    RED(<span class="num">0xFF0000</span>),
+    GREEN(<span class="num">0x00FF00</span>),
+    BLUE(<span class="num">0x0000FF</span>);
+
+    <span class="kw">fun</span> <span class="fn">hex</span>() = <span class="str">"#${rgb.toString(16).padStart(6, '0')}"</span>
+}
+
+<span class="fn">println</span>(<span class="tp">Direction</span>.NORTH)
+<span class="fn">println</span>(<span class="tp">Color</span>.RED.<span class="fn">hex</span>())
+<span class="fn">println</span>(<span class="tp">Color</span>.<span class="fn">valueOf</span>(<span class="str">"GREEN"</span>))
+<span class="tp">Color</span>.<span class="fn">entries</span>.<span class="fn">forEach</span> { <span class="fn">println</span>(it) }</pre>
+      </div>
+      <div class="output-block">NORTH
+#ff0000
+GREEN
+RED
+GREEN
+BLUE</div>
+    </article>
+
+    <article class="lesson" id="objects">
+      <div class="lesson-num"><span>18</span> object, companion, object expressions</div>
+      <h2>Singletons and anonymous objects</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="cm">// Singleton</span>
+<span class="kw">object</span> <span class="tp">Logger</span> {
+    <span class="kw">fun</span> <span class="fn">log</span>(msg: <span class="tp">String</span>) = <span class="fn">println</span>(<span class="str">"[LOG] $msg"</span>)
+}
+<span class="tp">Logger</span>.<span class="fn">log</span>(<span class="str">"started"</span>)
+
+<span class="cm">// Companion object — like static members</span>
+<span class="kw">class</span> <span class="tp">User private constructor</span>(<span class="kw">val</span> id: <span class="tp">Int</span>) {
+    <span class="kw">companion object</span> {
+        <span class="kw">fun</span> <span class="fn">create</span>(id: <span class="tp">Int</span>) = <span class="tp">User</span>(id)
+        <span class="kw">const val</span> MAX = <span class="num">100</span>
+    }
+}
+<span class="kw">val</span> u = <span class="tp">User</span>.<span class="fn">create</span>(<span class="num">1</span>)
+
+<span class="cm">// Object expression (anonymous class)</span>
+<span class="kw">val</span> listener = <span class="kw">object</span> : <span class="tp">MouseAdapter</span>() {
+    <span class="kw">override fun</span> <span class="fn">mouseClicked</span>(e: <span class="tp">MouseEvent</span>) { <span class="cm">/* … */</span> }
+}</pre>
+      </div>
+    </article>
+
+    <article class="lesson" id="sealed">
+      <div class="lesson-num"><span>19</span> Sealed classes &amp; interfaces</div>
+      <h2>Restricted hierarchies + exhaustive when</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">sealed class</span> <span class="tp">Result</span>&lt;<span class="kw">out</span> T&gt; {
+    <span class="kw">data class</span> <span class="tp">Success</span>&lt;T&gt;(<span class="kw">val</span> data: T) : <span class="tp">Result</span>&lt;T&gt;()
+    <span class="kw">data class</span> <span class="tp">Error</span>(<span class="kw">val</span> message: <span class="tp">String</span>) : <span class="tp">Result</span>&lt;<span class="tp">Nothing</span>&gt;()
+    <span class="kw">object</span> <span class="tp">Loading</span> : <span class="tp">Result</span>&lt;<span class="tp">Nothing</span>&gt;()
+}
+
+<span class="kw">fun</span> <span class="fn">handle</span>(r: <span class="tp">Result</span>&lt;<span class="tp">String</span>&gt;) = <span class="kw">when</span> (r) {
+    <span class="kw">is</span> <span class="tp">Result.Success</span> -> <span class="fn">println</span>(r.data)
+    <span class="kw">is</span> <span class="tp">Result.Error</span>   -> <span class="fn">println</span>(r.message)
+    <span class="tp">Result.Loading</span>     -> <span class="fn">println</span>(<span class="str">"…"</span>)
+}  <span class="cm">// no else — exhaustive</span>
+
+<span class="cm">// Sealed interface (Kotlin 1.5+)</span>
+<span class="kw">sealed interface</span> <span class="tp">Expr</span>
+<span class="kw">data class</span> <span class="tp">Const</span>(<span class="kw">val</span> n: <span class="tp">Int</span>) : <span class="tp">Expr</span>
+<span class="kw">data class</span> <span class="tp">Plus</span>(<span class="kw">val</span> a: <span class="tp">Expr</span>, <span class="kw">val</span> b: <span class="tp">Expr</span>) : <span class="tp">Expr</span></pre>
+      </div>
+      <p>All direct subclasses must be in the same package/module. Ideal for state machines and result types.</p>
+    </article>
+
+    <article class="lesson" id="interfaces">
+      <div class="lesson-num"><span>20</span> Interfaces</div>
+      <h2>Contracts with default implementations</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">interface</span> <span class="tp">Clickable</span> {
+    <span class="kw">fun</span> <span class="fn">click</span>()
+    <span class="kw">fun</span> <span class="fn">showOff</span>() = <span class="fn">println</span>(<span class="str">"I'm clickable"</span>)  <span class="cm">// default</span>
+}
+
+<span class="kw">interface</span> <span class="tp">Focusable</span> {
+    <span class="kw">fun</span> <span class="fn">showOff</span>() = <span class="fn">println</span>(<span class="str">"I'm focusable"</span>)
+}
+
+<span class="kw">class</span> <span class="tp">Button</span> : <span class="tp">Clickable</span>, <span class="tp">Focusable</span> {
+    <span class="kw">override fun</span> <span class="fn">click</span>() = <span class="fn">println</span>(<span class="str">"clicked"</span>)
+    <span class="kw">override fun</span> <span class="fn">showOff</span>() {
+        <span class="kw">super</span>&lt;<span class="tp">Clickable</span>&gt;.<span class="fn">showOff</span>()
+        <span class="kw">super</span>&lt;<span class="tp">Focusable</span>&gt;.<span class="fn">showOff</span>()
+    }
+}
+
+<span class="tp">Button</span>().<span class="fn">showOff</span>()</pre>
+      </div>
+      <div class="output-block">I'm clickable
+I'm focusable</div>
+      <p>Interfaces can contain abstract properties and default method bodies. A class may implement many interfaces.</p>
+    </article>
+
+    <article class="lesson" id="when">
+      <div class="lesson-num"><span>21</span> when expression</div>
+      <h2>Powerful pattern matching</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">fun</span> <span class="fn">describe</span>(x: <span class="tp">Any</span>) = <span class="kw">when</span> (x) {
+    <span class="num">0</span>            -> <span class="str">"zero"</span>
+    <span class="kw">in</span> <span class="num">1</span>..<span class="num">9</span>      -> <span class="str">"single digit"</span>
+    <span class="kw">is</span> <span class="tp">String</span>     -> <span class="str">"string len ${x.length}"</span>
+    <span class="kw">is</span> <span class="tp">Int</span>        -> <span class="str">"int"</span>
+    <span class="kw">else</span>          -> <span class="str">"other"</span>
+}
+
+<span class="cm">// without argument — acts like if-else chain</span>
+<span class="kw">val</span> result = <span class="kw">when</span> {
+    x &lt; <span class="num">0</span>  -> <span class="str">"negative"</span>
+    x == <span class="num">0</span> -> <span class="str">"zero"</span>
+    <span class="kw">else</span>   -> <span class="str">"positive"</span>
+}</pre>
+      </div>
+    </article>
+
+    <!-- ========== FUNCTIONAL ========== -->
+    <div class="section-divider">Part V — Functional Features</div>
+
+    <article class="lesson" id="extensions">
+      <div class="lesson-num"><span>22</span> Extension functions &amp; properties</div>
+      <h2>Add members without inheritance</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">fun</span> <span class="tp">String</span>.<span class="fn">shout</span>() = <span class="fn">uppercase</span>() + <span class="str">"!"</span>
+<span class="kw">val</span> <span class="tp">String</span>.lastChar: <span class="tp">Char</span>
+    <span class="kw">get</span>() = <span class="kw">this</span>[length - <span class="num">1</span>]
+
+<span class="fn">println</span>(<span class="str">"hello"</span>.<span class="fn">shout</span>())
+<span class="fn">println</span>(<span class="str">"Kotlin"</span>.lastChar)
+
+<span class="cm">// Nullable receiver</span>
+<span class="kw">fun</span> <span class="tp">String?</span>.<span class="fn">isNullOrBlank</span>() = <span class="kw">this</span> == <span class="kw">null</span> || <span class="fn">isBlank</span>()</pre>
+      </div>
+      <div class="output-block">HELLO!
+n</div>
+      <p>Resolved statically. They do not override members — a real member always wins.</p>
+    </article>
+
+    <article class="lesson" id="lambdas">
+      <div class="lesson-num"><span>23</span> Lambdas &amp; higher-order functions</div>
+      <h2>Functions as values</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> add: (<span class="tp">Int</span>, <span class="tp">Int</span>) -> <span class="tp">Int</span> = { a, b -> a + b }
+<span class="fn">println</span>(<span class="fn">add</span>(<span class="num">2</span>, <span class="num">3</span>))
+
+<span class="kw">fun</span> <span class="fn">operate</span>(x: <span class="tp">Int</span>, y: <span class="tp">Int</span>, op: (<span class="tp">Int</span>, <span class="tp">Int</span>) -> <span class="tp">Int</span>) = <span class="fn">op</span>(x, y)
+<span class="fn">println</span>(<span class="fn">operate</span>(<span class="num">4</span>, <span class="num">5</span>) { a, b -> a * b })
+
+<span class="cm">// Trailing lambda + implicit it</span>
+<span class="fn">listOf</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>).<span class="fn">forEach</span> { <span class="fn">println</span>(it) }
+
+<span class="cm">// Function references</span>
+<span class="kw">fun</span> <span class="fn">triple</span>(n: <span class="tp">Int</span>) = n * <span class="num">3</span>
+<span class="fn">println</span>(<span class="fn">listOf</span>(<span class="num">1</span>, <span class="num">2</span>).<span class="fn">map</span>(::triple))
+
+<span class="cm">// Returning from lambda — use labels</span>
+<span class="fn">listOf</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>).<span class="fn">forEach</span> {
+    <span class="kw">if</span> (it == <span class="num">2</span>) <span class="kw">return@forEach</span>
+    <span class="fn">println</span>(it)
+}</pre>
+      </div>
+    </article>
+
+    <article class="lesson" id="scope">
+      <div class="lesson-num"><span>24</span> Scope functions</div>
+      <h2>let, run, with, apply, also</h2>
+      <table style="width:100%;border-collapse:collapse;margin:1rem 0;font-size:0.9rem;">
+        <tr style="border-bottom:1px solid var(--kt-border);">
+          <th style="text-align:left;padding:0.4rem;">Function</th>
+          <th style="text-align:left;padding:0.4rem;">Object ref</th>
+          <th style="text-align:left;padding:0.4rem;">Returns</th>
+          <th style="text-align:left;padding:0.4rem;">Typical use</th>
+        </tr>
+        <tr style="border-bottom:1px solid var(--kt-border);"><td style="padding:0.4rem;"><span class="inline-code">let</span></td><td style="padding:0.4rem;">it</td><td style="padding:0.4rem;">lambda result</td><td style="padding:0.4rem;">null checks, transform</td></tr>
+        <tr style="border-bottom:1px solid var(--kt-border);"><td style="padding:0.4rem;"><span class="inline-code">run</span></td><td style="padding:0.4rem;">this</td><td style="padding:0.4rem;">lambda result</td><td style="padding:0.4rem;">compute on object</td></tr>
+        <tr style="border-bottom:1px solid var(--kt-border);"><td style="padding:0.4rem;"><span class="inline-code">with</span></td><td style="padding:0.4rem;">this</td><td style="padding:0.4rem;">lambda result</td><td style="padding:0.4rem;">non-extension variant of run</td></tr>
+        <tr style="border-bottom:1px solid var(--kt-border);"><td style="padding:0.4rem;"><span class="inline-code">apply</span></td><td style="padding:0.4rem;">this</td><td style="padding:0.4rem;">object</td><td style="padding:0.4rem;">configure / builder</td></tr>
+        <tr><td style="padding:0.4rem;"><span class="inline-code">also</span></td><td style="padding:0.4rem;">it</td><td style="padding:0.4rem;">object</td><td style="padding:0.4rem;">side effects / logging</td></tr>
+      </table>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> name: <span class="tp">String?</span> = <span class="str">"Ada"</span>
+name?.<span class="fn">let</span> { <span class="fn">println</span>(<span class="str">"Hi $it"</span>) }
+
+<span class="kw">val</span> list = <span class="fn">mutableListOf</span>&lt;<span class="tp">Int</span>&gt;().<span class="fn">apply</span> {
+    <span class="fn">add</span>(<span class="num">1</span>); <span class="fn">add</span>(<span class="num">2</span>)
+}
+
+<span class="kw">val</span> s = <span class="str">"kotlin"</span>.<span class="fn">run</span> { <span class="fn">uppercase</span>().<span class="fn">reversed</span>() }
+<span class="fn">println</span>(s)  <span class="cm">// NILTOK</span></pre>
+      </div>
+    </article>
+
+    <!-- ========== ADVANCED ========== -->
+    <div class="section-divider">Part VI — Advanced Language Features</div>
+
+    <article class="lesson" id="generics">
+      <div class="lesson-num"><span>25</span> Generics</div>
+      <h2>Type parameters, variance, reified</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">class</span> <span class="tp">Box</span>&lt;T&gt;(<span class="kw">val</span> value: T)
+
+<span class="kw">fun</span> &lt;T&gt; <span class="fn">singletonList</span>(item: T) = <span class="fn">listOf</span>(item)
+
+<span class="cm">// Upper bounds</span>
+<span class="kw">fun</span> &lt;T : <span class="tp">Comparable</span>&lt;T&gt;&gt; <span class="fn">max</span>(a: T, b: T) = <span class="kw">if</span> (a > b) a <span class="kw">else</span> b
+
+<span class="cm">// Variance</span>
+<span class="cm">// out T  = covariant  (producer) — List&lt;out T&gt;</span>
+<span class="cm">// in T   = contravariant (consumer)</span>
+<span class="kw">interface</span> <span class="tp">Producer</span>&lt;<span class="kw">out</span> T&gt; { <span class="kw">fun</span> <span class="fn">produce</span>(): T }
+<span class="kw">interface</span> <span class="tp">Consumer</span>&lt;<span class="kw">in</span> T&gt; { <span class="kw">fun</span> <span class="fn">consume</span>(item: T) }
+
+<span class="cm">// Reified type parameters (only with inline)</span>
+<span class="kw">inline fun</span> &lt;<span class="kw">reified</span> T&gt; <span class="fn">isType</span>(value: <span class="tp">Any</span>) = value <span class="kw">is</span> T
+<span class="fn">println</span>(<span class="fn">isType</span>&lt;<span class="tp">String</span>&gt;(<span class="str">"hi"</span>))  <span class="cm">// true</span>
+
+<span class="cm">// Star projection</span>
+<span class="kw">val</span> anyList: <span class="tp">List</span>&lt;*&gt; = <span class="fn">listOf</span>(<span class="num">1</span>, <span class="str">"a"</span>)</pre>
+      </div>
+      <p>Use <span class="inline-code">out</span> when the type only appears in output positions, <span class="inline-code">in</span> for input positions (PECS: Producer Extends, Consumer Super).</p>
+    </article>
+
+    <article class="lesson" id="delegation">
+      <div class="lesson-num"><span>26</span> Delegation</div>
+      <h2>by — class &amp; property delegation</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">interface</span> <span class="tp">Base</span> { <span class="kw">fun</span> <span class="fn">print</span>() }
+<span class="kw">class</span> <span class="tp">BaseImpl</span>(<span class="kw">val</span> x: <span class="tp">Int</span>) : <span class="tp">Base</span> {
+    <span class="kw">override fun</span> <span class="fn">print</span>() = <span class="fn">println</span>(x)
+}
+
+<span class="cm">// Class delegation</span>
+<span class="kw">class</span> <span class="tp">Derived</span>(b: <span class="tp">Base</span>) : <span class="tp">Base</span> <span class="kw">by</span> b
+
+<span class="tp">Derived</span>(<span class="tp">BaseImpl</span>(<span class="num">10</span>)).<span class="fn">print</span>()
+
+<span class="cm">// Property delegation</span>
+<span class="kw">class</span> <span class="tp">Example</span> {
+    <span class="kw">var</span> p: <span class="tp">String</span> <span class="kw">by</span> <span class="tp">Delegates</span>.observable(<span class="str">"init"</span>) { _, old, new ->
+        <span class="fn">println</span>(<span class="str">"$old → $new"</span>)
+    }
+    <span class="kw">val</span> lazyVal: <span class="tp">String</span> <span class="kw">by</span> <span class="fn">lazy</span> { <span class="str">"computed"</span> }
+    <span class="kw">var</span> mapProp: <span class="tp">String</span> <span class="kw">by</span> <span class="fn">mutableMapOf</span>()  <span class="cm">// map delegation</span>
+}</pre>
+      </div>
+      <div class="output-block">10</div>
+      <p>Standard delegates: <span class="inline-code">lazy</span>, <span class="inline-code">observable</span>, <span class="inline-code">vetoable</span>, map delegation.</p>
+    </article>
+
+    <article class="lesson" id="inline">
+      <div class="lesson-num"><span>27</span> Inline functions</div>
+      <h2>Avoid lambda allocations + reified types</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">inline fun</span> &lt;T&gt; <span class="fn">measure</span>(block: () -> T): T {
+    <span class="kw">val</span> start = <span class="tp">System</span>.nanoTime()
+    <span class="kw">val</span> result = <span class="fn">block</span>()
+    <span class="fn">println</span>(<span class="str">"Took ${System.nanoTime() - start} ns"</span>)
+    <span class="kw">return</span> result
+}
+
+<span class="cm">// noinline — keep a lambda as object</span>
+<span class="kw">inline fun</span> <span class="fn">foo</span>(<span class="kw">noinline</span> cb: () -> <span class="tp">Unit</span>) { <span class="cm">/* store cb */</span> }
+
+<span class="cm">// crossinline — forbid non-local returns in lambda</span>
+<span class="kw">inline fun</span> <span class="fn">runSafe</span>(<span class="kw">crossinline</span> body: () -> <span class="tp">Unit</span>) {
+    <span class="kw">try</span> { <span class="fn">body</span>() } <span class="kw">catch</span> (e: <span class="tp">Exception</span>) {}
+}
+
+<span class="cm">// Reified (only possible with inline)</span>
+<span class="kw">inline fun</span> &lt;<span class="kw">reified</span> T&gt; <span class="tp">List</span>&lt;*&gt;.<span class="fn">filterIsInstance</span>() =
+    <span class="fn">filter</span> { it <span class="kw">is</span> T }.<span class="fn">map</span> { it <span class="kw">as</span> T }</pre>
+      </div>
+      <p>The compiler inlines the function body at call sites, eliminating the cost of lambda objects.</p>
+    </article>
+
+    <article class="lesson" id="operators-over">
+      <div class="lesson-num"><span>28</span> Operator overloading</div>
+      <h2>Make your types work with +, [], in, …</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">data class</span> <span class="tp">Point</span>(<span class="kw">val</span> x: <span class="tp">Int</span>, <span class="kw">val</span> y: <span class="tp">Int</span>) {
+    <span class="kw">operator fun</span> <span class="fn">plus</span>(o: <span class="tp">Point</span>) = <span class="tp">Point</span>(x + o.x, y + o.y)
+    <span class="kw">operator fun</span> <span class="fn">unaryMinus</span>() = <span class="tp">Point</span>(-x, -y)
+    <span class="kw">operator fun</span> <span class="fn">get</span>(index: <span class="tp">Int</span>) = <span class="kw">if</span> (index == <span class="num">0</span>) x <span class="kw">else</span> y
+    <span class="kw">operator fun</span> <span class="fn">invoke</span>() = <span class="fn">println</span>(<span class="str">"($x, $y)"</span>)
+}
+
+<span class="kw">val</span> p = <span class="tp">Point</span>(<span class="num">1</span>, <span class="num">2</span>) + <span class="tp">Point</span>(<span class="num">3</span>, <span class="num">4</span>)
+<span class="fn">println</span>(p)        <span class="cm">// Point(x=4, y=6)</span>
+<span class="fn">println</span>(-p)
+<span class="fn">println</span>(p[<span class="num">0</span>])
+p()               <span class="cm">// invoke</span></pre>
+      </div>
+      <div class="output-block">Point(x=4, y=6)
+Point(x=-4, y=-6)
+4
+(4, 6)</div>
+      <p>Other operators: <span class="inline-code">minus</span>, <span class="inline-code">times</span>, <span class="inline-code">div</span>, <span class="inline-code">rem</span>, <span class="inline-code">contains</span> (<span class="inline-code">in</span>), <span class="inline-code">compareTo</span>, <span class="inline-code">rangeTo</span>, <span class="inline-code">inc</span>/<span class="inline-code">dec</span>, etc.</p>
+    </article>
+
+    <article class="lesson" id="exceptions">
+      <div class="lesson-num"><span>29</span> Exceptions</div>
+      <h2>try as expression, Nothing, checked exceptions</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">fun</span> <span class="fn">parse</span>(s: <span class="tp">String</span>): <span class="tp">Int</span> =
+    <span class="kw">try</span> {
+        s.<span class="fn">toInt</span>()
+    } <span class="kw">catch</span> (e: <span class="tp">NumberFormatException</span>) {
+        <span class="num">0</span>
+    } <span class="kw">finally</span> {
+        <span class="fn">println</span>(<span class="str">"done"</span>)
+    }
+
+<span class="fn">println</span>(<span class="fn">parse</span>(<span class="str">"42"</span>))
+<span class="fn">println</span>(<span class="fn">parse</span>(<span class="str">"x"</span>))
+
+<span class="cm">// throw returns Nothing (type that never completes)</span>
+<span class="kw">fun</span> <span class="fn">fail</span>(msg: <span class="tp">String</span>): <span class="tp">Nothing</span> {
+    <span class="kw">throw</span> <span class="tp">IllegalStateException</span>(msg)
+}
+
+<span class="kw">val</span> s: <span class="tp">String</span> = name ?: <span class="fn">fail</span>(<span class="str">"name required"</span>)
+
+<span class="cm">// Kotlin does not have checked exceptions</span>
+<span class="cm">// @Throws is only for Java interop</span></pre>
+      </div>
+      <div class="output-block">done
+42
+done
+0</div>
+    </article>
+
+    <article class="lesson" id="sequences">
+      <div class="lesson-num"><span>30</span> Sequences</div>
+      <h2>Lazy collection processing</h2>
+      <p>
+        <span class="inline-code">Iterable</span> operations are eager (each step creates a full collection).
+        <span class="inline-code">Sequence</span> is lazy — intermediate results are not materialized until a terminal operation.
+      </p>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> result = (<span class="num">1</span>..<span class="num">1_000_000</span>)
+    .<span class="fn">asSequence</span>()
+    .<span class="fn">map</span> { it * it }
+    .<span class="fn">filter</span> { it % <span class="num">2</span> == <span class="num">0</span> }
+    .<span class="fn">take</span>(<span class="num">5</span>)
+    .<span class="fn">toList</span>()
+
+<span class="fn">println</span>(result)
+
+<span class="cm">// Generate infinite sequences</span>
+<span class="kw">val</span> fib = <span class="fn">generateSequence</span>(<span class="num">1</span> to <span class="num">1</span>) { (a, b) -> b to a + b }
+    .<span class="fn">map</span> { it.first }
+    .<span class="fn">take</span>(<span class="num">10</span>)
+    .<span class="fn">toList</span>()
+<span class="fn">println</span>(fib)</pre>
+      </div>
+      <div class="output-block">[4, 16, 36, 64, 100]
+[1, 1, 2, 3, 5, 8, 13, 21, 34, 55]</div>
+      <p>Use sequences for large or infinite data, or when many intermediate steps would otherwise allocate heavily.</p>
+    </article>
+
+    <article class="lesson" id="packages">
+      <div class="lesson-num"><span>31</span> Packages &amp; imports</div>
+      <h2>Organization and visibility</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">package</span> com.example.app
+
+<span class="kw">import</span> kotlin.math.PI
+<span class="kw">import</span> kotlin.math.<span class="fn">sqrt</span> <span class="kw">as</span> squareRoot
+<span class="kw">import</span> com.example.util.*          <span class="cm">// wildcard</span>
+
+<span class="kw">fun</span> <span class="fn">main</span>() {
+    <span class="fn">println</span>(PI)
+    <span class="fn">println</span>(<span class="fn">squareRoot</span>(<span class="num">16.0</span>))
+}</pre>
+      </div>
+      <p>Default package is used if none is declared. File names need not match class names (unlike Java).</p>
+    </article>
+
+    <article class="lesson" id="type-aliases">
+      <div class="lesson-num"><span>32</span> Type aliases</div>
+      <h2>Give existing types a new name</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">typealias</span> <span class="tp">UserId</span> = <span class="tp">String</span>
+<span class="kw">typealias</span> <span class="tp">Handler</span> = (String) -> Unit
+<span class="kw">typealias</span> <span class="tp">StringMap</span> = <span class="tp">Map</span>&lt;<span class="tp">String</span>, <span class="tp">String</span>&gt;
+
+<span class="kw">fun</span> <span class="fn">process</span>(id: <span class="tp">UserId</span>, onDone: <span class="tp">Handler</span>) {
+    <span class="fn">onDone</span>(id)
+}</pre>
+      </div>
+      <p>Aliases are erased at compile time — they do not create new types. Useful for readability and long function types.</p>
+    </article>
+
+    <article class="lesson" id="value-classes">
+      <div class="lesson-num"><span>33</span> Value classes (inline classes)</div>
+      <h2>Zero-cost wrappers</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">@JvmInline</span>
+<span class="kw">value class</span> <span class="tp">Password</span>(<span class="kw">private val</span> s: <span class="tp">String</span>) {
+    <span class="kw">init</span> { <span class="fn">require</span>(s.length >= <span class="num">8</span>) }
+    <span class="kw">override fun</span> <span class="fn">toString</span>() = <span class="str">"*"</span>.<span class="fn">repeat</span>(s.length)
+}
+
+<span class="kw">val</span> p = <span class="tp">Password</span>(<span class="str">"secret123"</span>)
+<span class="fn">println</span>(p)  <span class="cm">// *********</span>
+<span class="cm">// At runtime this is often just a String — no allocation</span></pre>
+      </div>
+      <p>Value classes must have a single property in the primary constructor. They provide type safety without runtime overhead in many cases.</p>
+    </article>
+
+    <article class="lesson" id="annotations">
+      <div class="lesson-num"><span>34</span> Annotations</div>
+      <h2>Metadata for the compiler and tools</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">@Target</span>(<span class="tp">AnnotationTarget</span>.CLASS, <span class="tp">AnnotationTarget</span>.FUNCTION)
+<span class="kw">@Retention</span>(<span class="tp">AnnotationRetention</span>.RUNTIME)
+<span class="kw">annotation class</span> <span class="tp">Auth</span>(<span class="kw">val</span> role: <span class="tp">String</span> = <span class="str">"user"</span>)
+
+<span class="kw">@Auth</span>(<span class="str">"admin"</span>)
+<span class="kw">class</span> <span class="tp">AdminPanel</span>
+
+<span class="cm">// Common standard annotations</span>
+<span class="kw">@JvmStatic</span>          <span class="cm">// expose as static to Java</span>
+<span class="kw">@JvmOverloads</span>       <span class="cm">// generate overloads for defaults</span>
+<span class="kw">@JvmField</span>           <span class="cm">// expose as field, no getter</span>
+<span class="kw">@Throws</span>(IOException::class)
+<span class="kw">@Deprecated</span>(<span class="str">"Use newApi()"</span>, <span class="tp">ReplaceWith</span>(<span class="str">"newApi()"</span>))
+<span class="kw">@Suppress</span>(<span class="str">"UNCHECKED_CAST"</span>)
+<span class="kw">@OptIn</span>(ExperimentalStdlibApi::class)</pre>
+      </div>
+      <p>Annotations can have constructors and be applied to classes, functions, properties, parameters, expressions, and more.</p>
+    </article>
+
+    <!-- ========== COROUTINES ========== -->
+    <div class="section-divider">Part VII — Coroutines &amp; Async</div>
+
+    <article class="lesson" id="coroutines">
+      <div class="lesson-num"><span>35</span> Coroutines</div>
+      <h2>Structured concurrency &amp; suspend functions</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">build.gradle.kts</span><button class="copy-btn">Copy</button></div>
+        <pre>dependencies {
+    implementation(<span class="str">"org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0"</span>)
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">import</span> kotlinx.coroutines.*
+
+<span class="kw">suspend fun</span> <span class="fn">fetch</span>(id: <span class="tp">Int</span>): <span class="tp">String</span> {
+    <span class="fn">delay</span>(<span class="num">500</span>)                <span class="cm">// non-blocking</span>
+    <span class="kw">return</span> <span class="str">"Item-$id"</span>
+}
+
+<span class="kw">fun</span> <span class="fn">main</span>() = <span class="fn">runBlocking</span> {
+    <span class="fn">println</span>(<span class="str">"Start"</span>)
+
+    <span class="cm">// Concurrent</span>
+    <span class="kw">val</span> a = <span class="fn">async</span> { <span class="fn">fetch</span>(<span class="num">1</span>) }
+    <span class="kw">val</span> b = <span class="fn">async</span> { <span class="fn">fetch</span>(<span class="num">2</span>) }
+    <span class="fn">println</span>(<span class="str">"${a.await()} + ${b.await()}"</span>)
+
+    <span class="cm">// Fire-and-forget</span>
+    <span class="fn">launch</span> {
+        <span class="fn">delay</span>(<span class="num">100</span>)
+        <span class="fn">println</span>(<span class="str">"background"</span>)
+    }
+
+    <span class="cm">// Structured scope</span>
+    <span class="fn">coroutineScope</span> {
+        <span class="fn">launch</span> { <span class="fn">delay</span>(<span class="num">50</span>); <span class="fn">println</span>(<span class="str">"child"</span>) }
+    }
+
+    <span class="fn">println</span>(<span class="str">"Done"</span>)
+}</pre>
+      </div>
+      <div class="output-block">Start
+Item-1 + Item-2
+child
+background
+Done</div>
+      <h3>Dispatchers &amp; context</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="fn">launch</span>(Dispatchers.Default) { <span class="cm">/* CPU-bound */</span> }
+<span class="fn">launch</span>(Dispatchers.IO) { <span class="cm">/* blocking IO */</span> }
+<span class="fn">withContext</span>(Dispatchers.Default) {
+    <span class="cm">// switch context temporarily</span>
+}
+
+<span class="cm">// Cancellation is cooperative</span>
+<span class="kw">val</span> job = <span class="fn">launch</span> {
+    <span class="kw">while</span> (<span class="fn">isActive</span>) {
+        <span class="fn">ensureActive</span>()
+        <span class="cm">// work</span>
+    }
+}
+job.<span class="fn">cancel</span>()</pre>
+      </div>
+    </article>
+
+    <article class="lesson" id="flows">
+      <div class="lesson-num"><span>36</span> Flows</div>
+      <h2>Cold asynchronous streams</h2>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">import</span> kotlinx.coroutines.*
+<span class="kw">import</span> kotlinx.coroutines.flow.*
+
+<span class="kw">fun</span> <span class="fn">numbers</span>(): <span class="tp">Flow</span>&lt;<span class="tp">Int</span>&gt; = <span class="fn">flow</span> {
+    <span class="kw">for</span> (i <span class="kw">in</span> <span class="num">1</span>..<span class="num">5</span>) {
+        <span class="fn">delay</span>(<span class="num">100</span>)
+        <span class="fn">emit</span>(i)
+    }
+}
+
+<span class="kw">fun</span> <span class="fn">main</span>() = <span class="fn">runBlocking</span> {
+    numbers()
+        .<span class="fn">map</span> { it * it }
+        .<span class="fn">filter</span> { it % <span class="num">2</span> == <span class="num">0</span> }
+        .<span class="fn">collect</span> { <span class="fn">println</span>(it) }
+}
+
+<span class="cm">// Common operators: map, filter, transform, take,</span>
+<span class="cm">// flatMapConcat / Merge / Latest, debounce, buffer,</span>
+<span class="cm">// catch, onCompletion, flowOn, shareIn, stateIn</span></pre>
+      </div>
+      <div class="output-block">4
+16</div>
+      <p>
+        Flows are cold (start when collected) and respect cancellation.
+        Use <span class="inline-code">StateFlow</span> / <span class="inline-code">SharedFlow</span> for hot streams and UI state.
+      </p>
+      <div class="note">
+        <strong>Go deeper:</strong>
+        <a href="https://kotlinlang.org/docs/coroutines-guide.html" target="_blank" rel="noopener">Official Coroutines Guide</a>
+        covers channels, select, testing, and multiplatform.
+      </div>
+    </article>
+
+    <!-- CTA -->
+    <section class="section" style="padding-top: 2rem;">
+      <h2 class="section-title">You’ve covered the language</h2>
+      <p class="section-subtitle">
+        These 36 lessons span the vast majority of everyday and advanced Kotlin.
+        What remains is mostly the standard library surface area, multiplatform specifics, and ecosystem libraries.
+      </p>
+      <div class="hero-actions" style="justify-content: flex-start;">
+        <a href="coding.html" class="btn btn-primary">Coding examples</a>
+        <a href="docs.html" class="btn btn-secondary">Official docs map</a>
+        <a href="https://play.kotlinlang.org" target="_blank" rel="noopener" class="btn btn-secondary">Playground</a>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M1 1h10.5L1 12.5V1z" fill="#7F52FF"/><path d="M1 12.5L12.5 1H23v11.5L12.5 23 1 12.5z" fill="#7F52FF"/><path d="M12.5 23L23 12.5V23H12.5z" fill="#7F52FF"/></svg>
+          Kotlin Guide
+        </a>
+        <p>A deep, self-contained guide to the Kotlin programming language.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <a href="getting-started.html">Getting Started</a>
+        <a href="install.html">Install</a>
+        <a href="learn.html">Learn (Tutorial)</a>
+        <a href="coding.html">Coding</a>
+        <a href="docs.html">Docs</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="https://kotlinlang.org" target="_blank" rel="noopener">Official Site</a>
+        <a href="https://play.kotlinlang.org" target="_blank" rel="noopener">Playground</a>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <a href="https://github.com/JetBrains/kotlin" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Kotlin is developed by JetBrains. This guide is an independent educational resource.</span>
+      <span>Cloudflare Pages ready</span>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+  <script>
+    const lessons = document.querySelectorAll('.lesson[id]');
+    const navLinks = document.querySelectorAll('.lesson-nav a');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const active = document.querySelector(`.lesson-nav a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+    lessons.forEach(l => observer.observe(l));
+  </script>
+</body>
+</html>

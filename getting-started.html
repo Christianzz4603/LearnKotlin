@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started — Kotlin Guide</title>
+  <meta name="description" content="Get started with Kotlin in minutes. Your first program, project setup, and core concepts.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M1 1h10.5L1 12.5V1z" fill="#7F52FF"/><path d="M1 12.5L12.5 1H23v11.5L12.5 23 1 12.5z" fill="#7F52FF"/><path d="M12.5 23L23 12.5V23H12.5z" fill="#7F52FF"/></svg>
+        Kotlin Guide
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="getting-started.html" class="active">Getting Started</a></li>
+        <li><a href="install.html">Install</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="coding.html">Coding</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="install.html" class="nav-cta">Install Now</a></li>
+      </ul>
+      <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header class="page-header">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <span>Getting Started</span>
+      </div>
+      <h1>Getting Started with Kotlin</h1>
+      <p>From zero to your first running program. No prior experience required — just curiosity and a few minutes.</p>
+    </header>
+
+    <div class="content-block">
+      <h2>1. What you need</h2>
+      <p>You can write and run Kotlin in several ways:</p>
+      <ul>
+        <li><strong>Online playground</strong> — <a href="https://play.kotlinlang.org" target="_blank" rel="noopener">play.kotlinlang.org</a> (zero install)</li>
+        <li><strong>IntelliJ IDEA</strong> — recommended full IDE (Community edition is free)</li>
+        <li><strong>Command-line compiler</strong> — lightweight, great for scripts and CI</li>
+        <li><strong>Android Studio</strong> — if you target Android</li>
+      </ul>
+      <p>For this guide we start with the simplest path, then show local setup.</p>
+    </div>
+
+    <div class="content-block">
+      <h2>2. Your first program</h2>
+      <p>Create a file named <span class="inline-code">Hello.kt</span>:</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="lang">Hello.kt</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <pre><span class="kw">fun</span> <span class="fn">main</span>() {
+    <span class="fn">println</span>(<span class="str">"Hello, Kotlin!"</span>)
+}</pre>
+      </div>
+
+      <p>Compile and run from the terminal (after installing the compiler):</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="lang">bash</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <pre>kotlinc Hello.kt -include-runtime -d Hello.jar
+java -jar Hello.jar</pre>
+      </div>
+
+      <div class="note">
+        <strong>Tip:</strong> In IntelliJ IDEA you can just open the file and click the green Run icon next to <span class="inline-code">main</span>. No manual compilation needed.
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>3. Core concepts in 5 minutes</h2>
+
+      <h3>Variables</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">val</span> name = <span class="str">"Kotlin"</span>      <span class="cm">// immutable (preferred)</span>
+<span class="kw">var</span> count = <span class="num">0</span>          <span class="cm">// mutable</span>
+count += <span class="num">1</span></pre>
+      </div>
+
+      <h3>Functions</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">fun</span> <span class="fn">greet</span>(name: <span class="tp">String</span>): <span class="tp">String</span> {
+    <span class="kw">return</span> <span class="str">"Hello, $name!"</span>
+}
+
+<span class="cm">// Single-expression form</span>
+<span class="kw">fun</span> <span class="fn">double</span>(x: <span class="tp">Int</span>) = x * <span class="num">2</span></pre>
+      </div>
+
+      <h3>Null safety</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">var</span> a: <span class="tp">String</span> = <span class="str">"not null"</span>   <span class="cm">// cannot be null</span>
+<span class="kw">var</span> b: <span class="tp">String?</span> = <span class="kw">null</span>        <span class="cm">// can be null</span>
+
+<span class="cm">// Safe call</span>
+<span class="fn">println</span>(b?.length)
+
+<span class="cm">// Elvis operator — provide a default</span>
+<span class="kw">val</span> len = b?.length ?: <span class="num">0</span></pre>
+      </div>
+
+      <h3>Classes &amp; data classes</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="lang">Kotlin</span><button class="copy-btn">Copy</button></div>
+        <pre><span class="kw">class</span> <span class="tp">User</span>(<span class="kw">val</span> id: <span class="tp">Int</span>, <span class="kw">var</span> name: <span class="tp">String</span>)
+
+<span class="kw">data class</span> <span class="tp">Point</span>(<span class="kw">val</span> x: <span class="tp">Int</span>, <span class="kw">val</span> y: <span class="tp">Int</span>)
+
+<span class="kw">val</span> p1 = <span class="tp">Point</span>(<span class="num">1</span>, <span class="num">2</span>)
+<span class="kw">val</span> p2 = p1.<span class="fn">copy</span>(x = <span class="num">10</span>)
+<span class="fn">println</span>(p1)  <span class="cm">// Point(x=1, y=2)</span></pre>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>4. Project structure (Gradle)</h2>
+      <p>Most real projects use Gradle. A minimal layout looks like this:</p>
+
+      <div class="code-block">
+        <div class="code-header"><span class="lang">tree</span><button class="copy-btn">Copy</button></div>
+        <pre>my-app/
+├── build.gradle.kts
+├── settings.gradle.kts
+└── src/
+    └── main/
+        └── kotlin/
+            └── Main.kt</pre>
+      </div>
+
+      <p>Minimal <span class="inline-code">build.gradle.kts</span>:</p>
+
+      <div class="code-block">
+        <div class="code-header"><span class="lang">build.gradle.kts</span><button class="copy-btn">Copy</button></div>
+        <pre>plugins {
+    kotlin(<span class="str">"jvm"</span>) version <span class="str">"2.0.21"</span>
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(kotlin(<span class="str">"stdlib"</span>))
+}</pre>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>5. Next steps</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Install the toolchain</h3>
+            <p>Follow the <a href="install.html">Installation guide</a> to set up the compiler and IDE.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Explore language features</h3>
+            <p>Dive into the <a href="coding.html">Coding guide</a> for collections, coroutines, DSLs, and more.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Read the docs</h3>
+            <p>Use the <a href="docs.html">Docs overview</a> as a map to official and community resources.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M1 1h10.5L1 12.5V1z" fill="#7F52FF"/><path d="M1 12.5L12.5 1H23v11.5L12.5 23 1 12.5z" fill="#7F52FF"/><path d="M12.5 23L23 12.5V23H12.5z" fill="#7F52FF"/></svg>
+          Kotlin Guide
+        </a>
+        <p>A beautiful, self-contained guide to the Kotlin programming language.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <a href="getting-started.html">Getting Started</a>
+        <a href="install.html">Install</a>
+        <a href="learn.html">Learn (Tutorial)</a>
+        <a href="coding.html">Coding</a>
+        <a href="docs.html">Docs</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="https://kotlinlang.org" target="_blank" rel="noopener">Official Site</a>
+        <a href="https://play.kotlinlang.org" target="_blank" rel="noopener">Playground</a>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <a href="https://github.com/JetBrains/kotlin" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Kotlin is developed by JetBrains. This guide is an independent educational resource.</span>
+      <span>Cloudflare Pages ready</span>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
