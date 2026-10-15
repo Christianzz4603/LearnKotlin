@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Coding Guide — Kotlin</title>
   <meta name="description" content="Kotlin language features, idioms, collections, coroutines, and practical coding examples.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,10 +15,10 @@
   <nav class="navbar">
     <div class="nav-inner">
       <a href="index.html" class="logo">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M1 1h10.5L1 12.5V1z" fill="#7F52FF"/><path d="M1 12.5L12.5 1H23v11.5L12.5 23 1 12.5z" fill="#7F52FF"/><path d="M12.5 23L23 12.5V23H12.5z" fill="#7F52FF"/></svg>
+        <img class="logo-mark" src="assets/kotlin-logo.svg" alt="" width="32" height="32">
         Kotlin Guide
       </a>
-      <ul class="nav-links">
+      <ul class="nav-links" id="primary-navigation">
         <li><a href="index.html">Home</a></li>
         <li><a href="getting-started.html">Getting Started</a></li>
         <li><a href="install.html">Install</a></li>
@@ -27,7 +27,7 @@
         <li><a href="docs.html">Docs</a></li>
         <li><a href="docs.html" class="nav-cta">Docs</a></li>
       </ul>
-      <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <button type="button" class="mobile-toggle" aria-label="Toggle navigation menu" aria-controls="primary-navigation" aria-expanded="false">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </div>
@@ -231,7 +231,7 @@ numbers
     <div class="footer-inner">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-          <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M1 1h10.5L1 12.5V1z" fill="#7F52FF"/><path d="M1 12.5L12.5 1H23v11.5L12.5 23 1 12.5z" fill="#7F52FF"/><path d="M12.5 23L23 12.5V23H12.5z" fill="#7F52FF"/></svg>
+          <img class="logo-mark" src="assets/kotlin-logo.svg" alt="" width="32" height="32">
           Kotlin Guide
         </a>
         <p>A beautiful, self-contained guide to the Kotlin programming language.</p>
