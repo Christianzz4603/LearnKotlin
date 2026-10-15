@@ -47,14 +47,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Active nav highlight based on path
+  // Highlight only the actual page link, not every link pointing to it.
   const path = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a').forEach(a => {
-    const href = a.getAttribute('href');
-    if (href === path || (path === '' && href === 'index.html') ||
-        (path === 'index.html' && href === './') ||
-        (href && path.includes(href.replace('.html','')))) {
-      a.classList.add('active');
-    }
+    if (a.getAttribute('href') === path) a.classList.add('active');
   });
+
+  // Close the mobile menu after navigation and support the Escape key.
+  if (toggle && navLinks) {
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }));
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        navLinks.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
+      }
+    });
+    document.addEventListener('click', event => {
+      if (!toggle.contains(event.target) && !navLinks.contains(event.target)) {
+        navLinks.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
 });
