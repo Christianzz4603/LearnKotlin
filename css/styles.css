@@ -697,3 +697,48 @@ code {
   clip: rect(0,0,0,0);
   border: 0;
 }
+
+
+/* Brand, interaction, and small-screen refinements */
+.logo { flex-shrink: 0; }
+.logo-mark { width: 32px; height: 32px; object-fit: contain; flex: 0 0 32px; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--kt-primary-light);
+  outline-offset: 3px;
+}
+.nav-links a { white-space: nowrap; }
+.nav-links .nav-cta { margin-left: .25rem; }
+.mobile-toggle { border-radius: var(--radius-sm); }
+.mobile-toggle:hover { background: var(--kt-bg-hover); }
+.mobile-toggle svg { width: 24px; height: 24px; }
+.card-icon svg { flex: 0 0 24px; }
+.hero, .page-header, .section, .content-block { min-width: 0; }
+pre { max-width: 100%; tab-size: 2; }
+.content-block, .card, .step-content { overflow-wrap: anywhere; }
+@media (max-width: 768px) {
+  .navbar { padding-inline: 1rem; }
+  .nav-inner { height: 60px; }
+  .nav-links {
+    top: 60px; padding: .75rem 1rem 1rem;
+    align-items: stretch; max-height: calc(100dvh - 60px);
+    overflow-y: auto; box-shadow: 0 16px 30px rgba(0,0,0,.28);
+  }
+  .nav-links a { display: block; padding: .75rem .9rem; }
+  .nav-links .nav-cta { margin: .25rem 0 0; text-align: center; }
+  .page-header { padding-top: 2.25rem; }
+  .page-header h1 { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+  .page-header p, .hero p { font-size: 1rem; }
+  .container { padding-inline: 1rem; }
+  .lesson-nav { margin-inline: -1rem; }
+  pre { padding: 1rem; font-size: .82rem; }
+  .feature-strip { gap: 1rem 1.25rem; justify-content: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
