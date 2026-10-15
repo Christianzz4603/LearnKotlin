@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title">
+<title id="title">Kotlin logo</title>
+<defs><linearGradient id="kotlin-gradient" x1="0" y1="48" x2="48" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#7F52FF"/><stop offset=".52" stop-color="#C711E1"/><stop offset="1" stop-color="#E44857"/></linearGradient></defs>
+<path fill="url(#kotlin-gradient)" d="M0 0h48L23.5 23.65 48 48H0z"/>
+</svg>
